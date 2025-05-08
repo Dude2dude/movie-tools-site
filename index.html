@@ -1,21 +1,66 @@
+<!-- index.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>All-In-One | Movies & Tools</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>All-In-One Hub</title>
   <link rel="stylesheet" href="style.css" />
+  <style>
+    body {
+      background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
+      color: #fff;
+    }
+    .centered {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 80vh;
+      text-align: center;
+    }
+    h1 {
+      font-size: 2.5rem;
+      animation: fadeIn 1.5s ease-in-out;
+    }
+    p {
+      font-size: 1.2rem;
+      margin: 15px 0;
+      animation: fadeIn 2s ease-in-out;
+    }
+    .btn-container {
+      margin-top: 20px;
+      display: flex;
+      gap: 20px;
+    }
+    .btn {
+      padding: 15px 25px;
+      font-size: 1rem;
+      border: none;
+      border-radius: 30px;
+      background: #00c6ff;
+      background: linear-gradient(to right, #0072ff, #00c6ff);
+      color: white;
+      text-decoration: none;
+      transition: transform 0.2s ease;
+    }
+    .btn:hover {
+      transform: scale(1.05);
+    }
+    @keyframes fadeIn {
+      0% { opacity: 0; transform: translateY(-20px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+  </style>
 </head>
 <body>
-  <header>
+  <div class="centered">
     <h1>Welcome to All-In-One</h1>
-    <nav>
-      <a href="movies.html">Movies</a>
-      <a href="tools.html">Tools</a>
-    </nav>
-  </header>
-  <main>
-    <p>This site gives you both movie info and handy tools. Totally free! okkkkkk</p>
-  </main>
+    <p>Find Movies. Use Tools. All for Free!</p>
+    <div class="btn-container">
+      <a href="movies.html" class="btn">Movies</a>
+      <a href="tools.html" class="btn">Free Tools</a>
+    </div>
+  </div>
 </body>
 </html>
