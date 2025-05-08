@@ -1,3 +1,4 @@
+<!-- movies.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -17,6 +18,19 @@
     <div id="results"></div>
   </main>
   <script>
+    const customLinks = {
+      "Avengers": {
+        a: "https://linkvertise.com/1234/avengers-player-a",
+        b: "https://linkvertise.com/1234/avengers-player-b",
+        c: "https://linkvertise.com/1234/avengers-player-c"
+      },
+      "Iron Man": {
+        a: "https://linkvertise.com/1234/ironman-a",
+        b: "https://linkvertise.com/1234/ironman-b",
+        c: "https://linkvertise.com/1234/ironman-c"
+      }
+    };
+
     async function searchMovie() {
       const query = document.getElementById('searchInput').value;
       const res = await fetch(`https://www.omdbapi.com/?apikey=564727fa&s=${query}`);
@@ -25,12 +39,23 @@
       container.innerHTML = '';
       if (data.Search) {
         data.Search.forEach(movie => {
+          let links = '';
+          if (customLinks[movie.Title]) {
+            links = `
+              <a href="${customLinks[movie.Title].a}" target="_blank">Player A</a>
+              <a href="${customLinks[movie.Title].b}" target="_blank">Player B</a>
+              <a href="${customLinks[movie.Title].c}" target="_blank">Player C</a>
+            `;
+          } else {
+            links = `<a href="https://linkvertise.com" target="_blank">Download</a>`;
+          }
+
           container.innerHTML += `
             <div class="movie-card">
               <img src="${movie.Poster}" alt="${movie.Title}" />
               <h3>${movie.Title}</h3>
               <p>Year: ${movie.Year}</p>
-              <a href="https://linkvertise.com" target="_blank">Download</a>
+              ${links}
             </div>
           `;
         });
