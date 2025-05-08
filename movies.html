@@ -3,34 +3,80 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Movie Search</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Movie Hub</title>
   <link rel="stylesheet" href="style.css" />
+  <style>
+    section {
+      padding: 20px;
+      background: #f0f0f0;
+      margin: 10px;
+      border-radius: 10px;
+    }
+    h2 {
+      margin-top: 0;
+    }
+    .movie-list {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 15px;
+    }
+    .movie-card {
+      width: 160px;
+      padding: 10px;
+      border-radius: 8px;
+      background: white;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    .movie-card img {
+      width: 100%;
+      border-radius: 5px;
+    }
+    .download-btn {
+      display: block;
+      background: #007bff;
+      color: white;
+      text-decoration: none;
+      margin-top: 5px;
+      padding: 5px;
+      border-radius: 5px;
+      font-size: 0.9rem;
+    }
+  </style>
 </head>
 <body>
   <header>
-    <h1>Movie Finder</h1>
+    <h1>Movie Zone</h1>
     <a href="index.html">Home</a>
   </header>
-  <main>
-    <input type="text" id="searchInput" placeholder="Search a movie..." />
-    <button onclick="searchMovie()">Search</button>
-    <div id="results"></div>
-  </main>
-  <script>
-    const customLinks = {
-      "Avengers": {
-        a: "https://linkvertise.com/1234/avengers-player-a",
-        b: "https://linkvertise.com/1234/avengers-player-b",
-        c: "https://linkvertise.com/1234/avengers-player-c"
-      },
-      "Iron Man": {
-        a: "https://linkvertise.com/1234/ironman-a",
-        b: "https://linkvertise.com/1234/ironman-b",
-        c: "https://linkvertise.com/1234/ironman-c"
-      }
-    };
 
+  <main>
+    <section>
+      <h2>Suggested Movies</h2>
+      <div class="movie-list">
+        <div class="movie-card">
+          <img src="https://m.media-amazon.com/images/M/MV5BMjI2MTgxNzk2Ml5BMl5BanBnXkFtZTcwNzMxNDYzMw@@._V1_SX300.jpg" alt="Avatar">
+          <h4>Avatar</h4>
+          <a href="https://link-to-avatar-download.com" class="download-btn" target="_blank">Download</a>
+        </div>
+        <div class="movie-card">
+          <img src="https://m.media-amazon.com/images/M/MV5BYzAxZTZlZjktM2M3OC00ZTgyLTg2ZGQtMTM4ZmM5OTgxNjhhXkEyXkFqcGdeQXVyNTA4NzY1MzY@._V1_SX300.jpg" alt="Inception">
+          <h4>Inception</h4>
+          <a href="https://link-to-inception-download.com" class="download-btn" target="_blank">Download</a>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>New Releases</h2>
+      <input type="text" id="searchInput" placeholder="Search latest movies..." />
+      <button onclick="searchMovie()">Search</button>
+      <div id="results" class="movie-list"></div>
+    </section>
+  </main>
+
+  <script>
     async function searchMovie() {
       const query = document.getElementById('searchInput').value;
       const res = await fetch(`https://www.omdbapi.com/?apikey=564727fa&s=${query}`);
@@ -39,23 +85,12 @@
       container.innerHTML = '';
       if (data.Search) {
         data.Search.forEach(movie => {
-          let links = '';
-          if (customLinks[movie.Title]) {
-            links = `
-              <a href="${customLinks[movie.Title].a}" target="_blank">Player A</a>
-              <a href="${customLinks[movie.Title].b}" target="_blank">Player B</a>
-              <a href="${customLinks[movie.Title].c}" target="_blank">Player C</a>
-            `;
-          } else {
-            links = `<a href="https://linkvertise.com" target="_blank">Download</a>`;
-          }
-
           container.innerHTML += `
             <div class="movie-card">
               <img src="${movie.Poster}" alt="${movie.Title}" />
-              <h3>${movie.Title}</h3>
-              <p>Year: ${movie.Year}</p>
-              ${links}
+              <h4>${movie.Title}</h4>
+              <p>${movie.Year}</p>
+              <a href="https://linkvertise.com" class="download-btn" target="_blank">Download</a>
             </div>
           `;
         });
