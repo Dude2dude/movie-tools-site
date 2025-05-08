@@ -1,3 +1,4 @@
+/* style.css */
 body {
   font-family: Arial, sans-serif;
   margin: 0;
@@ -27,6 +28,11 @@ main {
   background: white;
   border-radius: 8px;
 }
+.movie-card img {
+  width: 100%;
+  height: auto;
+  border-radius: 5px;
+}
 textarea, input {
   width: 80%;
   padding: 8px;
@@ -42,4 +48,16 @@ button {
 }
 button:hover {
   background: #0056b3;
+}
+a {
+  display: inline-block;
+  margin: 5px;
+  color: white;
+  background: #28a745;
+  padding: 5px 10px;
+  border-radius: 5px;
+  text-decoration: none;
+}
+a:hover {
+  background: #1e7e34;
 }
