@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Movie Search</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>
+    <h1>Movie Finder</h1>
+    <a href="index.html">Home</a>
+  </header>
+  <main>
+    <input type="text" id="searchInput" placeholder="Search a movie..." />
+    <button onclick="searchMovie()">Search</button>
+    <div id="results"></div>
+  </main>
+  <script>
+    async function searchMovie() {
+      const query = document.getElementById('searchInput').value;
+      const res = await fetch(`https://www.omdbapi.com/?apikey=564727fa&s=${query}`);
+      const data = await res.json();
+      const container = document.getElementById('results');
+      container.innerHTML = '';
+      if (data.Search) {
+        data.Search.forEach(movie => {
+          container.innerHTML += `
+            <div class="movie-card">
+              <img src="${movie.Poster}" alt="${movie.Title}" />
+              <h3>${movie.Title}</h3>
+              <p>Year: ${movie.Year}</p>
+              <a href="https://linkvertise.com" target="_blank">Download</a>
+            </div>
+          `;
+        });
+      } else {
+        container.innerHTML = '<p>No results found.</p>';
+      }
+    }
+  </script>
+</body>
+</html>
