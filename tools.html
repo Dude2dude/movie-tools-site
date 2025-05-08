@@ -1,1 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Free Tools</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>Free Tools</h1>
+    <a href="index.html">Home</a>
+  </header>
+  <main>
+    <section>
+      <h2>Word Counter</h2>
+      <textarea id="textInput" rows="4" cols="50" placeholder="Type or paste text..."></textarea><br>
+      <button onclick="countWords()">Count Words</button>
+      <p id="wordCount"></p>
+    </section>
 
+    <section>
+      <h2>Instagram Image to URL</h2>
+      <p>Paste Instagram Image URL and press enter:</p>
+      <input id="igInput" placeholder="https://www.instagram.com/p/..." onblur="showLink()">
+      <p id="igResult"></p>
+    </section>
+  </main>
+  <script>
+    function countWords() {
+      const text = document.getElementById("textInput").value;
+      const words = text.trim().split(/\s+/);
+      document.getElementById("wordCount").innerText = `Word Count: ${words.length}`;
+    }
+
+    function showLink() {
+      const link = document.getElementById("igInput").value;
+      document.getElementById("igResult").innerHTML = `Direct Link: <a href="${link}" target="_blank">Open Image</a>`;
+    }
+  </script>
+</body>
+</html>
