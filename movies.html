@@ -1,80 +1,149 @@
-<!-- movies.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Movie Hub</title>
-  <link rel="stylesheet" href="style.css" />
+  <title>Movies | All-In-One</title>
   <style>
-    section {
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
+      color: white;
+    }
+
+    header {
       padding: 20px;
-      background: #f0f0f0;
-      margin: 10px;
-      border-radius: 10px;
+      text-align: center;
+      background: #111;
+      box-shadow: 0 0 10px #00c6ff;
     }
-    h2 {
-      margin-top: 0;
+
+    header h1 {
+      margin: 0;
+      font-size: 2.2rem;
+      animation: glow 2s ease-in-out infinite alternate;
     }
+
+    @keyframes glow {
+      from { text-shadow: 0 0 10px #00c6ff; }
+      to   { text-shadow: 0 0 20px #00eaff, 0 0 30px #00c6ff; }
+    }
+
+    .search-box {
+      text-align: center;
+      margin: 25px;
+    }
+
+    input[type="text"] {
+      padding: 12px;
+      width: 80%;
+      max-width: 400px;
+      border: none;
+      border-radius: 20px;
+      outline: none;
+    }
+
+    button {
+      padding: 12px 20px;
+      margin-left: 10px;
+      border: none;
+      border-radius: 20px;
+      background: #00c6ff;
+      color: #fff;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      background: #0072ff;
+    }
+
+    .section {
+      padding: 15px 20px;
+    }
+
+    .section h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      border-bottom: 1px solid #fff;
+      padding-bottom: 5px;
+    }
+
     .movie-list {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 15px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 20px;
+      padding: 0 20px;
     }
+
     .movie-card {
-      width: 160px;
-      padding: 10px;
-      border-radius: 8px;
-      background: white;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      background: #1a1a1a;
+      border-radius: 10px;
+      overflow: hidden;
+      text-align: center;
+      padding-bottom: 10px;
+      box-shadow: 0 0 10px #000;
     }
+
     .movie-card img {
       width: 100%;
-      border-radius: 5px;
+      height: 230px;
+      object-fit: cover;
     }
+
+    .movie-card h4 {
+      margin: 10px 0 5px;
+    }
+
     .download-btn {
-      display: block;
-      background: #007bff;
+      display: inline-block;
+      margin-top: 5px;
+      padding: 8px 15px;
+      border-radius: 20px;
+      background: #00c6ff;
       color: white;
       text-decoration: none;
-      margin-top: 5px;
-      padding: 5px;
-      border-radius: 5px;
       font-size: 0.9rem;
+      transition: 0.3s ease;
+    }
+
+    .download-btn:hover {
+      background: #0072ff;
     }
   </style>
 </head>
 <body>
   <header>
-    <h1>Movie Zone</h1>
-    <a href="index.html">Home</a>
+    <h1>Movie Explorer</h1>
   </header>
 
-  <main>
-    <section>
-      <h2>Suggested Movies</h2>
-      <div class="movie-list">
-        <div class="movie-card">
-          <img src="https://m.media-amazon.com/images/M/MV5BMjI2MTgxNzk2Ml5BMl5BanBnXkFtZTcwNzMxNDYzMw@@._V1_SX300.jpg" alt="Avatar">
-          <h4>Avatar</h4>
-          <a href="https://link-to-avatar-download.com" class="download-btn" target="_blank">Download</a>
-        </div>
-        <div class="movie-card">
-          <img src="https://m.media-amazon.com/images/M/MV5BYzAxZTZlZjktM2M3OC00ZTgyLTg2ZGQtMTM4ZmM5OTgxNjhhXkEyXkFqcGdeQXVyNTA4NzY1MzY@._V1_SX300.jpg" alt="Inception">
-          <h4>Inception</h4>
-          <a href="https://link-to-inception-download.com" class="download-btn" target="_blank">Download</a>
-        </div>
-      </div>
-    </section>
+  <div class="search-box">
+    <input type="text" id="searchInput" placeholder="Search any movie..." />
+    <button onclick="searchMovie()">Search</button>
+  </div>
 
-    <section>
-      <h2>New Releases</h2>
-      <input type="text" id="searchInput" placeholder="Search latest movies..." />
-      <button onclick="searchMovie()">Search</button>
-      <div id="results" class="movie-list"></div>
-    </section>
-  </main>
+  <div class="section">
+    <h2>Top Picks</h2>
+    <div class="movie-list">
+      <div class="movie-card">
+        <img src="https://m.media-amazon.com/images/M/MV5BMjI2MTgxNzk2Ml5BMl5BanBnXkFtZTcwNzMxNDYzMw@@._V1_SX300.jpg" alt="Avatar">
+        <h4>Avatar</h4>
+        <a href="https://yourdownloadlink.com/avatar" class="download-btn" target="_blank">Download</a>
+      </div>
+      <div class="movie-card">
+        <img src="https://m.media-amazon.com/images/M/MV5BYzAxZTZlZjktM2M3OC00ZTgyLTg2ZGQtMTM4ZmM5OTgxNjhhXkEyXkFqcGdeQXVyNTA4NzY1MzY@._V1_SX300.jpg" alt="Inception">
+        <h4>Inception</h4>
+        <a href="https://yourdownloadlink.com/inception" class="download-btn" target="_blank">Download</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>Search Results</h2>
+    <div id="results" class="movie-list"></div>
+  </div>
 
   <script>
     async function searchMovie() {
@@ -95,7 +164,7 @@
           `;
         });
       } else {
-        container.innerHTML = '<p>No results found.</p>';
+        container.innerHTML = '<p style="text-align:center;">No results found.</p>';
       }
     }
   </script>
