@@ -4,15 +4,28 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>My Movie Zone</title>
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="styles.css"/>
 </head>
 <body>
   <header>
     <h1>My Movie Zone</h1>
+    <input type="text" id="searchBar" placeholder="Search movies...">
   </header>
+
   <main>
-    <section id="movies" class="movie-grid"></section>
+    <section id="movie-list" class="movie-grid">
+      <!-- Movies will be displayed here -->
+    </section>
   </main>
+
+  <!-- Trailer modal -->
+  <div id="trailerModal" class="modal hidden">
+    <div class="modal-content">
+      <span id="closeModal">&times;</span>
+      <iframe id="trailerFrame" width="100%" height="400" allowfullscreen></iframe>
+    </div>
+  </div>
+
   <script src="script.js"></script>
 </body>
 </html>
