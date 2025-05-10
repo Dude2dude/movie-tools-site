@@ -1,66 +1,30 @@
-<!-- index.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>All-In-One Hub</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MovieZone - Trending Movies</title>
   <link rel="stylesheet" href="style.css" />
-  <style>
-    body {
-      background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
-      color: #fff;
-    }
-    .centered {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      height: 80vh;
-      text-align: center;
-    }
-    h1 {
-      font-size: 2.5rem;
-      animation: fadeIn 1.5s ease-in-out;
-    }
-    p {
-      font-size: 1.2rem;
-      margin: 15px 0;
-      animation: fadeIn 2s ease-in-out;
-    }
-    .btn-container {
-      margin-top: 20px;
-      display: flex;
-      gap: 20px;
-    }
-    .btn {
-      padding: 15px 25px;
-      font-size: 1rem;
-      border: none;
-      border-radius: 30px;
-      background: #00c6ff;
-      background: linear-gradient(to right, #0072ff, #00c6ff);
-      color: white;
-      text-decoration: none;
-      transition: transform 0.2s ease;
-    }
-    .btn:hover {
-      transform: scale(1.05);
-    }
-    @keyframes fadeIn {
-      0% { opacity: 0; transform: translateY(-20px); }
-      100% { opacity: 1; transform: translateY(0); }
-    }
-  </style>
 </head>
 <body>
-  <div class="centered">
-    <h1>Welcome to All-In-One</h1>
-    <p>Find Movies. Use Tools. All for Free!</p>
-    <div class="btn-container">
-      <a href="movies.html" class="btn">Movies</a>
-      <a href="tools.html" class="btn">Free Tools</a>
-    </div>
-  </div>
+  <header class="navbar">
+    <h1>MovieZone</h1>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="movies.html">Movies</a>
+      <a href="tools.html">Tools</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <h2>Trending Now</h2>
+    <div id="trending" class="movie-grid"></div>
+  </section>
+
+  <footer class="footer">
+    <p>&copy; 2025 MovieZone. All rights reserved.</p>
+  </footer>
+
+  <script src="script.js"></script>
 </body>
 </html>
