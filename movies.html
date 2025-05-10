@@ -3,39 +3,83 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>All-In-One Movies</title>
+  <title>MovieZone - Explore Movies</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <header>
-    <h1>All-In-One Movies</h1>
-    <div class="search-box">
-      <input type="text" id="searchInput" placeholder="Search for movies..." />
-      <button onclick="searchMovie()">Search</button>
-    </div>
+  <header class="navbar">
+    <h1>MovieZone</h1>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="movies.html">Movies</a>
+      <a href="tools.html">Tools</a>
+    </nav>
   </header>
 
-  <nav id="genre-container">
-    <!-- Genre buttons will be injected here -->
-  </nav>
+  <section class="hero">
+    <h2>Explore Movies</h2>
+    <div class="controls">
+      <input type="text" id="searchInput" placeholder="Search for a movie..." />
+      <select id="genreSelect">
+        <option value="">All Genres</option>
+        <option value="28">Action</option>
+        <option value="35">Comedy</option>
+        <option value="27">Horror</option>
+        <option value="18">Drama</option>
+        <option value="878">Sci-Fi</option>
+        <!-- Add more genres as needed -->
+      </select>
+    </div>
+    <div id="movieResults" class="movie-grid"></div>
+  </section>
 
-  <main>
-    <section id="trending">
-      <h2>Trending Now</h2>
-      <div id="trending-movies" class="movie-list"></div>
-    </section>
+  <footer class="footer">
+    <p>&copy; 2025 MovieZone. All rights reserved.</p>
+  </footer>
 
-    <section id="search-results">
-      <h2>Search Results</h2>
-      <div id="results" class="movie-list"></div>
-    </section>
+  <script>
+    const apiKey = "9b3b4fa1f1d85f3d1be4c5bb88a1b2c0";
+    const searchInput = document.getElementById("searchInput");
+    const genreSelect = document.getElementById("genreSelect");
+    const results = document.getElementById("movieResults");
 
-    <section id="genre-section">
-      <h2>Movies by Genre</h2>
-      <div id="genre-movies" class="movie-list"></div>
-    </section>
-  </main>
+    async function fetchMovies(query = "", genre = "") {
+      const url = query
+        ? `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&query=${query}`
+        : `https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}&with_genres=${genre}`;
+      const res = await fetch(url);
+      const data = await res.json();
+      showResults(data.results);
+    }
 
-  <script src="script.js"></script>
+    function showResults(movies) {
+      results.innerHTML = "";
+      movies.forEach((movie) => {
+        const card = document.createElement("div");
+        card.classList.add("movie-card");
+        card.innerHTML = `
+          <img src="https://image.tmdb.org/t/p/w500${movie.poster_path}" alt="${movie.title}">
+          <div class="info">
+            <h3>${movie.title}</h3>
+            <p>Rating: ${movie.vote_average}</p>
+            <a href="https://your-player-link.com/watch/${movie.id}" target="_blank" class="download-btn">Watch / Download</a>
+          </div>
+        `;
+        results.appendChild(card);
+      });
+    }
+
+    // Event listeners
+    searchInput.addEventListener("input", () => {
+      fetchMovies(searchInput.value);
+    });
+
+    genreSelect.addEventListener("change", () => {
+      fetchMovies("", genreSelect.value);
+    });
+
+    // Load default
+    fetchMovies();
+  </script>
 </body>
 </html>
