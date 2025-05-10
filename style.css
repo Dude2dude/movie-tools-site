@@ -1,129 +1,88 @@
-body {
+* {
   margin: 0;
-  font-family: 'Segoe UI', sans-serif;
-  background-color: #141414;
-  color: #fff;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-header {
-  background-color: #000;
-  padding: 15px 20px;
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #121212;
+  color: #fff;
+  line-height: 1.6;
+}
+
+a {
+  color: #fff;
+  text-decoration: none;
+}
+
+.navbar {
+  background-color: #1f1f1f;
+  padding: 1rem 2rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 100;
 }
 
-header h1 {
-  margin: 0;
-  font-size: 1.8rem;
+.navbar h1 {
   color: #e50914;
+  font-size: 1.5rem;
 }
 
-.search-box {
-  display: flex;
-  gap: 10px;
+.navbar nav a {
+  margin-left: 1.5rem;
+  font-weight: 500;
 }
 
-.search-box input[type="text"] {
-  padding: 10px 15px;
-  width: 300px;
-  border-radius: 5px;
-  border: none;
-  outline: none;
+.hero {
+  padding: 2rem;
 }
 
-.search-box button {
-  padding: 10px 15px;
-  background-color: #e50914;
-  color: #fff;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  font-weight: bold;
+.hero h2 {
+  font-size: 1.8rem;
+  margin-bottom: 1rem;
 }
 
-nav#genre-container {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  padding: 15px 20px;
-  background-color: #1f1f1f;
-}
-
-nav#genre-container button {
-  background-color: #333;
-  color: #fff;
-  border: none;
-  padding: 8px 12px;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-nav#genre-container button:hover {
-  background-color: #e50914;
-}
-
-main {
-  padding: 20px;
-}
-
-section {
-  margin-bottom: 40px;
-}
-
-.movie-list {
+.movie-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-  gap: 15px;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 1.2rem;
 }
 
 .movie-card {
-  position: relative;
-  overflow: hidden;
-  border-radius: 10px;
-  cursor: pointer;
-  transition: transform 0.3s ease;
   background-color: #222;
+  border-radius: 10px;
+  overflow: hidden;
+  transition: transform 0.3s ease;
+}
+
+.movie-card:hover {
+  transform: scale(1.05);
 }
 
 .movie-card img {
   width: 100%;
-  height: 220px;
+  height: 240px;
   object-fit: cover;
-  display: block;
-  border-radius: 10px 10px 0 0;
+  border-bottom: 2px solid #e50914;
 }
 
-.movie-card:hover {
-  transform: scale(1.03);
+.movie-card .info {
+  padding: 0.8rem;
 }
 
-.movie-info {
-  padding: 10px;
-}
-
-.movie-title {
+.movie-card .info h3 {
   font-size: 1rem;
-  font-weight: bold;
-  margin: 0 0 5px 0;
+  margin-bottom: 0.3rem;
 }
 
-.download-btn {
-  display: inline-block;
-  padding: 5px 10px;
-  font-size: 0.8rem;
-  background-color: #e50914;
-  color: #fff;
-  border-radius: 5px;
-  text-decoration: none;
-}
-
-@media (max-width: 480px) {
-  .search-box input[type="text"] {
-    width: 100%;
-  }
-
-  .movie-card img {
-    height: 180px;
-  }
+.footer {
+  background-color: #1f1f1f;
+  padding: 1rem;
+  text-align: center;
+  font-size: 0.9rem;
+  margin-top: 3rem;
 }
