@@ -1,110 +1,36 @@
-const apiKey = '9b3b4fa1f1d85f3d1be4c5bb88a1b2c0'; // Replace with your TMDb API key
-const imageBaseURL = 'https://image.tmdb.org/t/p/w500';
+const apiKey = "9b3b4fa1f1d85f3d1be4c5bb88a1b2c0"; // Demo API key (replace with your own for production)
+const trendingSection = document.getElementById("trending");
 
-let currentPage = 1;
-let isFetching = false;
-
-// Fetch and display genres
-async function fetchGenres() {
-  try {
-    const res = await fetch(`https://api.themoviedb.org/3/genre/movie/list?api_key=${apiKey}`);
-    const data = await res.json();
-    const genreContainer = document.getElementById('genre-container');
-    data.genres.forEach(genre => {
-      const button = document.createElement('button');
-      button.textContent = genre.name;
-      button.addEventListener('click', () => {
-        fetchMoviesByGenre(genre.id);
-      });
-      genreContainer.appendChild(button);
-    });
-  } catch (error) {
-    console.error('Error fetching genres:', error);
-  }
-}
-
-// Fetch and display trending movies
+// Fetch trending movies from TMDb
 async function fetchTrendingMovies() {
   try {
-    const res = await fetch(`https://api.themoviedb.org/3/trending/movie/day?api_key=${apiKey}`);
-    const data = await res.json();
-    displayMovies(data.results, 'trending-movies');
+    const response = await fetch(
+      `https://api.themoviedb.org/3/trending/movie/week?api_key=${apiKey}`
+    );
+    const data = await response.json();
+    displayMovies(data.results);
   } catch (error) {
-    console.error('Error fetching trending movies:', error);
+    console.error("Error fetching trending movies:", error);
+    trendingSection.innerHTML = "<p>Failed to load movies.</p>";
   }
 }
 
-// Search for movies
-async function searchMovie() {
-  const query = document.getElementById('searchInput').value.trim();
-  if (!query) return;
-  try {
-    const res = await fetch(`https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&query=${encodeURIComponent(query)}`);
-    const data = await res.json();
-    const resultsContainer = document.getElementById('results');
-    resultsContainer.innerHTML = '';
-    displayMovies(data.results, 'results');
-  } catch (error) {
-    console.error('Error searching movies:', error);
-  }
-}
-
-// Fetch and display movies by genre
-async function fetchMoviesByGenre(genreId) {
-  try {
-    const res = await fetch(`https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}&with_genres=${genreId}`);
-    const data = await res.json();
-    const genreMoviesContainer = document.getElementById('genre-movies');
-    genreMoviesContainer.innerHTML = '';
-    displayMovies(data.results, 'genre-movies');
-  } catch (error) {
-    console.error('Error fetching movies by genre:', error);
-  }
-}
-
-// Display movies in the specified container
-function displayMovies(movies, containerId) {
-  const container = document.getElementById(containerId);
-  movies.forEach(movie => {
-    const movieCard = document.createElement('div');
-    movieCard.classList.add('movie-card');
-
-    const posterPath = movie.poster_path ? `${imageBaseURL}${movie.poster_path}` : 'placeholder.jpg';
-
-    movieCard.innerHTML = `
-      <img src="${posterPath}" alt="${movie.title}" />
-      <div class="movie-info">
-        <div class="movie-title">${movie.title}</div>
-        <a href="https://yourdownloadlink.com/${movie.id}" class="download-btn" target="_blank">Download</a>
+// Display movie cards on the homepage
+function displayMovies(movies) {
+  trendingSection.innerHTML = "";
+  movies.forEach((movie) => {
+    const card = document.createElement("div");
+    card.classList.add("movie-card");
+    card.innerHTML = `
+      <img src="https://image.tmdb.org/t/p/w500${movie.poster_path}" alt="${movie.title}">
+      <div class="info">
+        <h3>${movie.title}</h3>
+        <p>Rating: ${movie.vote_average}</p>
       </div>
     `;
-    container.appendChild(movieCard);
+    trendingSection.appendChild(card);
   });
 }
 
-// Infinite scroll for trending movies
-window.addEventListener('scroll', () => {
-  if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 500 && !isFetching) {
-    currentPage++;
-    fetchMoreTrendingMovies(currentPage);
-  }
-});
-
-async function fetchMoreTrendingMovies(page) {
-  isFetching = true;
-  try {
-    const res = await fetch(`https://api.themoviedb.org/3/trending/movie/day?api_key=${apiKey}&page=${page}`);
-    const data = await res.json();
-    displayMovies(data.results, 'trending-movies');
-  } catch (error) {
-    console.error('Error fetching more trending movies:', error);
-  } finally {
-    isFetching = false;
-  }
-}
-
-// Initialize the app
-document.addEventListener('DOMContentLoaded', () => {
-  fetchGenres();
-  fetchTrendingMovies();
-});
+// Init
+fetchTrendingMovies();
